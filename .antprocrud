@@ -1,0 +1,9 @@
+{
+    namespace:"question", //ant-dva namespace
+    path:"src/pages/banner", //路劲
+    name:"question", //模块名称
+    apiBasePath:"/uhu/admin/api", //api 前缀
+    api: { 
+        index:"/config/banner/listBannerQuestion"//默认get请求
+    }
+}

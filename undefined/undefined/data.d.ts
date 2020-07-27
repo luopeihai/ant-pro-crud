@@ -4,11 +4,6 @@ import { Pagination } from "@/data/global.d";
 
 
 
- 
- //  请求 banner list
- export interface queryListParams extends Pagination {
-
- }
 
 
 

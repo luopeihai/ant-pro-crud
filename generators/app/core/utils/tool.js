@@ -1,7 +1,7 @@
 var fs = require("fs");
 const readFile = require("util").promisify(fs.readFile);
 
-const readConfigFile = function (fileName = ".antprocrud") {
+const readConfigFile = function (fileName = "antprocrud.json") {
   return new Promise((resolve, reject) => {
     try {
       resolve(fs.readFileSync(fileName, "utf8"));

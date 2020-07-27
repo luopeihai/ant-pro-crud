@@ -1,0 +1,112 @@
+{
+  "namespace": "banner",
+  "path": "src/pages",
+  "name": "banner",
+  "key": "bannerId",
+  "apiBasePath": "/uhu/admin/api",
+  "api": {
+    "index": "/config/banner/listBanner|index",
+    "create": "/config/banner|post",
+    "update": "/config/banner|put",
+    "detail": "/config/banner/{bannerId}|get",
+    "delete": "/config/banner/{moduleId}/{bannerId}|delete"
+  },
+  "query": {
+    "description": "请求 banner list",
+    "data": [
+      {
+        "name": "bannerTitle",
+        "valueType": "number",
+        "required": false,
+        "description": "banner描述"
+      }
+    ]
+  },
+  "row": {
+    "description": "每行 banner",
+    "data": [
+      {
+        "title": "banner标题",
+        "name": "bannerTitle",
+        "valueType": "number",
+        "plugin": "SelectSearch"
+      },
+      {
+        "title": "banner描述",
+        "name": "bannerDesc",
+        "valueType": "number",
+        "hideInTable": true,
+        "hideInForm": true
+      },
+      {
+        "title": "排序",
+        "name": "bannerSort",
+        "valueType": "number",
+        "sorter": true,
+        "plugin": "SortInputNumber"
+      },
+      {
+        "title": "创建时间",
+        "name": "createTime",
+        "valueType": "dateTime",
+        "plugin": "RangePicker"
+      },
+      {
+        "title": "更新时间",
+        "name": "updateTime",
+        "valueType": "dateTime"
+      }
+    ]
+  },
+
+  "createRow": {
+    "description": "创建 banner",
+    "data": [
+      {
+        "title": "banner标题",
+        "name": "bannerTitle",
+        "formType": "Input",
+        "rules": [{ "required": true }, { "max": 50 }]
+      },
+      {
+        "title": "游戏名称",
+        "name": "moduleId",
+        "plugin": "SelectSearch",
+        "rules": [{ "required": true }],
+        "props": {
+          "url": "/config/module/listModule",
+          "formatData": {
+            "key": "moduleId",
+            "value": "moduleName"
+          },
+          "defaultValue": true
+        }
+      },
+      {
+        "title": "banner图片",
+        "name": "bannerImage",
+        "rules": [
+          { "required": true },
+          { "plugin": "validator", "width": "100", "height": "100" }
+        ],
+        "plugin": "ImageUpload"
+      }
+    ]
+  },
+  "updateRow": {
+    "description": "更新 banner",
+    "data": [
+      {
+        "name": "bannerId"
+      }
+    ]
+  },
+  "deleteRow": {
+    "description": "删除 banner",
+    "data": [
+      {
+        "name": "bannerId"
+      }
+    ]
+  }
+}

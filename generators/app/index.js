@@ -5,6 +5,7 @@ const { readConfigFile } = require("./core/utils/tool");
 const { getServicesContext } = require("./core/service");
 const { getModelContext } = require("./core/model");
 const { getIndexContext, getFormContext } = require("./core/view");
+let config = ""; //配置
 
 let that = null;
 
@@ -24,70 +25,129 @@ module.exports = class extends Generator {
 
   //向用户展示交互式问题收集关键参数
   async prompting() {
-    let config = await readConfigFile();
+    //prompt array
+    let promptArray = [];
+    //读取配置文件
+    config = await readConfigFile();
     if (config) {
+      //存在配置
       config = JSON.parse(config);
+    } else {
+      promptArray = [
+        {
+          type: "input",
+          name: "api",
+          message: "文档api地址",
+          default: "http://192.168.10.175:8093/v2/api-docs",
+        },
+        {
+          type: "input",
+          name: "name",
+          message: "模块名(Your project name)",
+          default: "question",
+          //default: "question",
+        },
+        {
+          type: "input",
+          name: "path",
+          message: "路径(Your project path)",
+          default: "src/pages/banner",
+        },
+        {
+          type: "input",
+          name: "indexApi",
+          message: "列表 api : <格式:api|method(默认get)>",
+          default: "/config/banner/listBannerQuestion",
+          //default: "/config/banner/listBanner|get",
+        },
+        {
+          type: "input",
+          name: "createApi",
+          message: "创建 api(格式:api|method(默认post))",
+          // default: "/config/banner|post",
+          default: "/config/banner/addQuestionToBanner",
+        },
+        {
+          type: "input",
+          name: "updateApi",
+          message: "更新 api(格式:api|method(默认put))",
+          // default: "/config/banner|put",
+          //default: null,
+        },
+        {
+          type: "input",
+          name: "deleteApi",
+          message: "删除 api(格式:api|method(默认delete))",
+          //default: "/config/banner/{moduleId}/{bannerId}|delete",
+          default:
+            "/config/banner/removeQuestionFromBanner/{bannerId}/{mainId}",
+        },
+      ];
     }
-    console.log(config.namespace);
 
-    // Yeoman 在询问用户环节会自动调用此方法
-    // 在此方法中可以调用父类的 prompt() 方法发出对用户的命令行询问
-    return this.prompt([
-      // {
-      //   type: "input",
-      //   name: "api",
-      //   message: "文档api地址",
-      //   default: "http://192.168.10.175:8093/v2/api-docs",
-      // },
-      // {
-      //   type: "input",
-      //   name: "name",
-      //   message: "模块名(Your project name)",
-      //   default: "question",
-      //   //default: "question",
-      // },
-      // {
-      //   type: "input",
-      //   name: "path",
-      //   message: "路径(Your project path)",
-      //   default: "src/pages/banner",
-      // },
-      // {
-      //   type: "input",
-      //   name: "indexApi",
-      //   message: "列表 api : <格式:api|method(默认get)>",
-      //   default: "/config/banner/listBannerQuestion",
-      //   //default: "/config/banner/listBanner|get",
-      // },
-      // {
-      //   type: "input",
-      //   name: "createApi",
-      //   message: "创建 api(格式:api|method(默认post))",
-      //   // default: "/config/banner|post",
-      //   default: "/config/banner/addQuestionToBanner",
-      // },
-      // {
-      //   type: "input",
-      //   name: "updateApi",
-      //   message: "更新 api(格式:api|method(默认put))",
-      //   // default: "/config/banner|put",
-      //   //default: null,
-      // },
-      // {
-      //   type: "input",
-      //   name: "deleteApi",
-      //   message: "删除 api(格式:api|method(默认delete))",
-      //   //default: "/config/banner/{moduleId}/{bannerId}|delete",
-      //   default: "/config/banner/removeQuestionFromBanner/{bannerId}/{mainId}",
-      // },
-    ]).then((answers) => {
+    return this.prompt(promptArray).then((answers) => {
       this.answers = answers;
     });
   }
 
   writing() {
-    console.log("哈哈哈");
+    console.log("1111");
+    // const {
+    //   namespace,
+    //   path,
+    //   name,
+    //   key,
+    //   apiBasePath,
+    //   query = null,
+    //   row = null,
+    //   createRow = null,
+    //   updateRow = null,
+    //   deleteRow = null,
+    //   api: {
+    //     index = null,
+    //     create = null,
+    //     update = null,
+    //     detail = null,
+    //     delete: deleteObj = null,
+    //   },
+    // } = config;
+
+    // //api 处理
+    // const [indexApi = null, method = "get"] =
+    //   index === null ? [] : index.split("|");
+    // const [createApi = null, createMethod = "post"] =
+    //   create === null ? [] : create.split("|");
+
+    // const [updateApi = null, updateMethod = "put"] =
+    //   update === null ? [] : update.split("|");
+
+    // const [detailApi = null, detailMethod = "get"] =
+    //   detail === null ? [] : detail.split("|");
+
+    // const [deleteApi = null, deleteMethod = "delete"] =
+    //   deleteObj === null ? [] : deleteObj.split("|");
+
+    // this.writingData(path, name, query, row, createRow, updateRow, deleteRow);
   }
+
+  /**
+   * 生成 model
+   * @param {*} path 路劲
+   * @param {*} name 模块名称
+   * @param {*} query 请求参数
+   * @param {*} row 每行显示
+   * @param {*} createRow 创建 参数
+   * @param {*} updateRow 更新 参数
+   * @param {*} deleteRow 删除 参数
+   */
+  writingData(path, name, query, row, createRow, updateRow, deleteRow) {
+    this.fs.copyTpl(
+      this.templatePath("data.d.ts"),
+      this.destinationPath(`${path}/${name}/data.d.ts`),
+      { query, row, createRow, updateRow, deleteRow }
+    );
+  }
+
   //依据模板进行新项目结构的写操作
   // writing() {
   //   that = this;

@@ -91,7 +91,6 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    console.log("1111");
     // const {
     //   namespace,
     //   path,
@@ -111,22 +110,17 @@ module.exports = class extends Generator {
     //     delete: deleteObj = null,
     //   },
     // } = config;
-
     // //api 处理
     // const [indexApi = null, method = "get"] =
     //   index === null ? [] : index.split("|");
     // const [createApi = null, createMethod = "post"] =
     //   create === null ? [] : create.split("|");
-
     // const [updateApi = null, updateMethod = "put"] =
     //   update === null ? [] : update.split("|");
-
     // const [detailApi = null, detailMethod = "get"] =
     //   detail === null ? [] : detail.split("|");
-
     // const [deleteApi = null, deleteMethod = "delete"] =
     //   deleteObj === null ? [] : deleteObj.split("|");
-
     // this.writingData(path, name, query, row, createRow, updateRow, deleteRow);
   }
 

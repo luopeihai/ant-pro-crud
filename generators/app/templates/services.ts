@@ -1,5 +1,4 @@
 import request from "@/utils/request";
-
 import {
   queryListParams,
   <% if (createApiString) { %>
@@ -8,8 +7,7 @@ import {
   <% if (updateApiString) { %>
     <%= 'updateParams,' %>
 <%}%> 
- 
-   <% if (deleteApiString) { %>
+<%   if (deleteApiString) { %>
     <%= 'deleteParams' %>
 <%}%> 
 } from "./data.d";

@@ -127,7 +127,7 @@ module.exports = class extends Generator {
   }
 
   /**
-   * 生成 model
+   * 生成 data.d.ts
    * @param {*} path 路劲
    * @param {*} name 模块名称
    * @param {*} query 请求参数
@@ -145,6 +145,19 @@ module.exports = class extends Generator {
       );
     }
   }
+
+  renderServices(
+    indexApi,
+    method,
+    createApi,
+    createMethod,
+    updateApi,
+    updateMethod,
+    detailApi,
+    detailMethod,
+    deleteApi,
+    deleteMethod
+  ) {}
 
   //依据模板进行新项目结构的写操作
   // writing() {

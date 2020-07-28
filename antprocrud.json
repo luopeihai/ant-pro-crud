@@ -30,7 +30,8 @@
         "name": "bannerTitle",
         "tsType": "number",
         "valueType": "number",
-        "plugin": "SelectSearch"
+        "required": true,
+        "formType": "Input"
       },
       {
         "title": "banner描述",
@@ -38,7 +39,8 @@
         "tsType": "string",
         "valueType": "string",
         "hideInTable": true,
-        "hideInForm": true
+        "hideInForm": true,
+        "required": true
       },
       {
         "title": "排序",
@@ -46,20 +48,23 @@
         "tsType": "number",
         "valueType": "number",
         "sorter": true,
-        "plugin": "SortInputNumber"
+        "plugin": "SortInputNumber",
+        "required": true
       },
       {
         "title": "创建时间",
         "name": "createTime",
         "tsType": "string",
         "valueType": "dateTime",
-        "plugin": "RangePicker"
+        "plugin": "RangePicker",
+        "required": true
       },
       {
         "title": "更新时间",
         "name": "updateTime",
         "tsType": "string",
-        "valueType": "dateTime"
+        "valueType": "dateTime",
+        "required": true
       }
     ]
   },

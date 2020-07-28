@@ -91,37 +91,39 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    // const {
-    //   namespace,
-    //   path,
-    //   name,
-    //   key,
-    //   apiBasePath,
-    //   query = null,
-    //   row = null,
-    //   createRow = null,
-    //   updateRow = null,
-    //   deleteRow = null,
-    //   api: {
-    //     index = null,
-    //     create = null,
-    //     update = null,
-    //     detail = null,
-    //     delete: deleteObj = null,
-    //   },
-    // } = config;
-    // //api 处理
-    // const [indexApi = null, method = "get"] =
-    //   index === null ? [] : index.split("|");
-    // const [createApi = null, createMethod = "post"] =
-    //   create === null ? [] : create.split("|");
-    // const [updateApi = null, updateMethod = "put"] =
-    //   update === null ? [] : update.split("|");
-    // const [detailApi = null, detailMethod = "get"] =
-    //   detail === null ? [] : detail.split("|");
-    // const [deleteApi = null, deleteMethod = "delete"] =
-    //   deleteObj === null ? [] : deleteObj.split("|");
-    // this.writingData(path, name, query, row, createRow, updateRow, deleteRow);
+    if (!Reflect.ownKeys(this.answers).length) {
+      const {
+        namespace,
+        path,
+        name,
+        key,
+        apiBasePath,
+        query = null,
+        row = null,
+        createRow = null,
+        updateRow = null,
+        deleteRow = null,
+        api: {
+          index = null,
+          create = null,
+          update = null,
+          detail = null,
+          delete: deleteObj = null,
+        },
+      } = config;
+      //api 处理
+      const [indexApi = null, method = "get"] =
+        index === null ? [] : index.split("|");
+      const [createApi = null, createMethod = "post"] =
+        create === null ? [] : create.split("|");
+      const [updateApi = null, updateMethod = "put"] =
+        update === null ? [] : update.split("|");
+      const [detailApi = null, detailMethod = "get"] =
+        detail === null ? [] : detail.split("|");
+      const [deleteApi = null, deleteMethod = "delete"] =
+        deleteObj === null ? [] : deleteObj.split("|");
+      this.renderData(path, name, query, row, createRow, updateRow, deleteRow);
+    }
   }
 
   /**
@@ -134,12 +136,14 @@ module.exports = class extends Generator {
    * @param {*} updateRow 更新 参数
    * @param {*} deleteRow 删除 参数
    */
-  writingData(path, name, query, row, createRow, updateRow, deleteRow) {
-    this.fs.copyTpl(
-      this.templatePath("data.d.ts"),
-      this.destinationPath(`${path}/${name}/data.d.ts`),
-      { query, row, createRow, updateRow, deleteRow }
-    );
+  renderData(path, name, query, row, createRow, updateRow, deleteRow) {
+    if (path) {
+      this.fs.copyTpl(
+        this.templatePath("data.d.ts"),
+        this.destinationPath(`${path}/${name}/data.d.ts`),
+        { query, row, createRow, updateRow, deleteRow }
+      );
+    }
   }
 
   //依据模板进行新项目结构的写操作

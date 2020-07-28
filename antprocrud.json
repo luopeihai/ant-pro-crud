@@ -16,7 +16,7 @@
     "data": [
       {
         "name": "bannerTitle",
-        "valueType": "number",
+        "tsType": "number",
         "required": false,
         "description": "banner描述"
       }
@@ -28,19 +28,22 @@
       {
         "title": "banner标题",
         "name": "bannerTitle",
+        "tsType": "number",
         "valueType": "number",
         "plugin": "SelectSearch"
       },
       {
         "title": "banner描述",
         "name": "bannerDesc",
-        "valueType": "number",
+        "tsType": "string",
+        "valueType": "string",
         "hideInTable": true,
         "hideInForm": true
       },
       {
         "title": "排序",
         "name": "bannerSort",
+        "tsType": "number",
         "valueType": "number",
         "sorter": true,
         "plugin": "SortInputNumber"
@@ -48,12 +51,14 @@
       {
         "title": "创建时间",
         "name": "createTime",
+        "tsType": "string",
         "valueType": "dateTime",
         "plugin": "RangePicker"
       },
       {
         "title": "更新时间",
         "name": "updateTime",
+        "tsType": "string",
         "valueType": "dateTime"
       }
     ]
@@ -65,14 +70,17 @@
       {
         "title": "banner标题",
         "name": "bannerTitle",
+        "tsType": "string",
+        "required": true,
         "formType": "Input",
-        "rules": [{ "required": true }, { "max": 50 }]
+        "rules": [{ "max": 50 }]
       },
       {
         "title": "游戏名称",
         "name": "moduleId",
+        "required": true,
+        "tsType": "string",
         "plugin": "SelectSearch",
-        "rules": [{ "required": true }],
         "props": {
           "url": "/config/module/listModule",
           "formatData": {
@@ -85,6 +93,8 @@
       {
         "title": "banner图片",
         "name": "bannerImage",
+        "required": true,
+        "tsType": "string",
         "rules": [
           { "required": true },
           { "plugin": "validator", "width": "100", "height": "100" }
@@ -97,7 +107,28 @@
     "description": "更新 banner",
     "data": [
       {
-        "name": "bannerId"
+        "title": "bannerId",
+        "name": "bannerId",
+        "tsType": "number",
+        "required": true
+      },
+      {
+        "title": "banner标题",
+        "name": "bannerTitle",
+        "tsType": "string",
+        "required": true
+      },
+      {
+        "title": "游戏名称",
+        "name": "moduleId",
+        "required": true,
+        "tsType": "string"
+      },
+      {
+        "title": "banner图片",
+        "name": "bannerImage",
+        "required": true,
+        "tsType": "string"
       }
     ]
   },
@@ -105,7 +136,9 @@
     "description": "删除 banner",
     "data": [
       {
-        "name": "bannerId"
+        "title": "bannerId",
+        "name": "bannerId",
+        "tsType": "number"
       }
     ]
   }

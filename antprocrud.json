@@ -5,7 +5,7 @@
   "key": "bannerId",
   "apiBasePath": "/uhu/admin/api",
   "api": {
-    "index": "/config/banner/listBanner|index",
+    "index": "/config/banner/listBanner|get",
     "create": "/config/banner|post",
     "update": "/config/banner|put",
     "detail": "/config/banner/{bannerId}|get",

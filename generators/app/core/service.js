@@ -22,9 +22,7 @@ const getServicesContext = function (
 
 const _getData = function (method) {
   return method === "get"
-    ? {
-        data: "params",
-      }
+    ? "params"
     : {
         method,
         data: "params",

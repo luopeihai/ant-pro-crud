@@ -1,9 +1,9 @@
 <%
    const modelType = `${name}ModelType`;
    const modelName = `${name}Model`;
-   const namespace = `${name}List`
-%>
 
+   
+%>
 
 import { Reducer, Effect } from 'umi';
 import { 
@@ -16,7 +16,7 @@ import { message as antdMessage } from 'antd';
 export interface StateType {
   status?: 'ok' | 'error'; //当前状态
   message?: string; //消息
-  loading: boolean; //选中账号的fu币
+  loading: boolean; 
 }
 
 export interface <%=modelType%> {

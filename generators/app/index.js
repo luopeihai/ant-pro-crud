@@ -123,6 +123,30 @@ module.exports = class extends Generator {
       const [deleteApi = null, deleteMethod = "delete"] =
         deleteObj === null ? [] : deleteObj.split("|");
       this.renderData(path, name, query, row, createRow, updateRow, deleteRow);
+      this.renderServices(
+        path,
+        name,
+        indexApi,
+        method,
+        createApi,
+        createMethod,
+        updateApi,
+        updateMethod,
+        detailApi,
+        detailMethod,
+        deleteApi,
+        deleteMethod
+      );
+      this.renderMdel(
+        namespace,
+        path,
+        name,
+        indexApi,
+        createApi,
+        updateApi,
+        detailApi,
+        deleteApi
+      );
     }
   }
 
@@ -147,6 +171,8 @@ module.exports = class extends Generator {
   }
 
   renderServices(
+    path,
+    name,
     indexApi,
     method,
     createApi,
@@ -157,7 +183,56 @@ module.exports = class extends Generator {
     detailMethod,
     deleteApi,
     deleteMethod
-  ) {}
+  ) {
+    if (path) {
+      //services 输出
+      this.fs.copyTpl(
+        this.templatePath("services.ts"),
+        this.destinationPath(`${path}/${name}/services.ts`),
+        {
+          indexApi,
+          method,
+          createApi,
+          createMethod,
+          updateApi,
+          updateMethod,
+          detailApi,
+          detailMethod,
+          deleteApi,
+          deleteMethod,
+        }
+      );
+    }
+  }
+
+  renderMdel(
+    namespace,
+    path,
+    name,
+    indexApi,
+    createApi,
+    updateApi,
+    detailApi,
+    deleteApi
+  ) {
+    if (path) {
+      //services 输出
+      this.fs.copyTpl(
+        this.templatePath("model.ts"),
+        this.destinationPath(`${path}/${name}/model.ts`),
+        {
+          namespace,
+          path,
+          name,
+          indexApi,
+          createApi,
+          updateApi,
+          detailApi,
+          deleteApi,
+        }
+      );
+    }
+  }
 
   //依据模板进行新项目结构的写操作
   // writing() {
